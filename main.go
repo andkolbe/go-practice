@@ -1,13 +1,25 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/andkolbe/go-practice/helpers"
 )
 
-func main() {
-	var myVar helpers.SomeType
-	myVar.TypeName = "Some name"
-	fmt.Println(myVar.TypeName)
+const numPool = 1000
+func CalculateValue(intChan chan int) {
+	randomNumber := helpers.RandomNumber(numPool)
+	intChan <- randomNumber
 }
+
+func main() {
+	intChan := make(chan int)
+	defer close(intChan)
+
+	go CalculateValue(intChan)
+
+	num := <- intChan
+	log.Println(num)
+}
+
+
