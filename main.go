@@ -2,22 +2,7 @@ package main
 
 import "log"
 
-type myStruct struct {
-	FirstName string
-}
-
-func (m *myStruct) printFirstName() string {
-	return m.FirstName
-}
-
 func main() {
-	var myVar myStruct
-	myVar.FirstName = "Andrew"
-
-	myVar2 := myStruct {
-		FirstName: "Andy",
-	}
-
-	log.Println("MyVar is set to", myVar.printFirstName())
-	log.Println("MyVar2 is set to", myVar2.printFirstName())
+	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	log.Println(numbers[2:])
 }
