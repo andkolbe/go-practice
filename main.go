@@ -1,25 +1,22 @@
 package main
 
-import "fmt"
+import "log"
 
 func main() {
-	fmt.Println("Hello, world.")
+	var myString string
+	myString = "Green"
 
-	var whatToSay string 
-	var i int
+	log.Println("myString is set to", myString)
+	changeUsingPointer(&myString)
+	log.Println("after func call myString is set to", myString)
 
-	whatToSay = "Goodbye, cruel world"
-	fmt.Println(whatToSay)
-
-	i = 7
-
-	fmt.Println("i is set to", i)
-
-	whatWasSaid, theOtherThingThatWasSaid := saySomething()
-
-	fmt.Println("The function returned", whatWasSaid, theOtherThingThatWasSaid)
 }
 
-func saySomething() (string, string) {
-	return "something", "else"
+func changeUsingPointer(s *string) {
+	newValue := "Red"
+	*s = newValue
 }
+
+// a pointer points to a specific location in memory and gives you a means of getting that location in memory
+// when you create a variable, you are creating a variable in memory
+// you store a value at a particular memory location
