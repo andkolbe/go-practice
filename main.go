@@ -1,25 +1,23 @@
 package main
 
-import (
-	"log"
-	"time"
-)
+import "log"
 
-type User struct {
-	FirstName   string
-	LastName    string
-	PhoneNumber string
-	Age         int
-	BirthDate   time.Time
+type myStruct struct {
+	FirstName string
+}
+
+func (m *myStruct) printFirstName() string {
+	return m.FirstName
 }
 
 func main() {
-	user := User {
-		FirstName: "Andrew",
-		LastName: "Kolbe",
+	var myVar myStruct
+	myVar.FirstName = "Andrew"
+
+	myVar2 := myStruct{
+		FirstName: "Winnie",
 	}
 
-	log.Println(user.FirstName)
-
+	log.Println("myVar is set to", myVar.printFirstName())
+	log.Println("myVar2 is set to", myVar2.printFirstName())
 }
-
