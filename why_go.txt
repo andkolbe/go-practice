@@ -1,0 +1,24 @@
+Why Go?
+
+Compliles to a single binary file 
+Up to 200x faster than an interpreted language
+
+No runtimes to worry about
+don't need to worry about version
+
+Statically typed
+no surprises at run time
+
+Object Oriented (sort of)
+Interfaces
+
+Concurrency
+Go can take advantage of all of the computer's processors
+Don't need to jump through a lot of hoops like single threaded languages such as Python and NodeJS
+
+Cross Platform
+
+Excellent package management and testing built in 
+
+Easy to learn
+Web server built in to the standard library that is production ready

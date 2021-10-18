@@ -1,67 +1,25 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"log"
-)
-
-type Person struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	HairColor string `json:"hair_color"`
-	HasDog    bool `json:"has_dog"`
-}
+import "fmt"
 
 func main() {
-	myJson := `
-	[
-		{
-			"first_name": "Clark",
-			"last_name": "Kent",
-			"hair_color": "black",
-			"has_dog": true
-		},
-		{
-			"first_name": "Bruce",
-			"last_name": "Wayne",
-			"hair_color": "black",
-			"has_dog": false
-		}
-	]`
+	fmt.Println("Hello, World")
 
-	var unmarshalled []Person
-
-	err := json.Unmarshal([]byte(myJson), &unmarshalled)
-	if err != nil {
-		log.Println("Error", err)
-	}
-
-	log.Printf("unmarshalled: %v", unmarshalled)
+	var i int 
 
 
-	var mySlice []Person
+	whatToSay := "Goodbye, cruel, world"
 
-	var m1 Person
-	m1.FirstName = "Wally"
-	m1.LastName = "West"
-	m1.HairColor = "red"
-	m1.HasDog = false
+	fmt.Println(whatToSay)
 
-	mySlice = append(mySlice, m1)
+	i = 7
 
-	var m2 Person
-	m2.FirstName = "Diana"
-	m2.LastName = "Prince"
-	m2.HairColor = "black"
-	m2.HasDog = false
+	fmt.Println("i is set to", i)
 
-	mySlice = append(mySlice, m2)
+	whatWasSaid := saySomething()
+	fmt.Println(whatWasSaid)
+}
 
-	newJson, err:= json.MarshalIndent(mySlice, "", "       ")
-	if err != nil {
-		log.Println("error", err)
-	}
-
-	fmt.Println(string(newJson))
+func saySomething() string {
+	return "something"
 }
