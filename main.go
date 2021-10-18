@@ -1,25 +1,17 @@
 package main
 
-import "fmt"
+import "log"
 
 func main() {
-	fmt.Println("Hello, World")
+	var myString string
+	myString = "Green"
 
-	var i int 
-
-
-	whatToSay := "Goodbye, cruel, world"
-
-	fmt.Println(whatToSay)
-
-	i = 7
-
-	fmt.Println("i is set to", i)
-
-	whatWasSaid := saySomething()
-	fmt.Println(whatWasSaid)
+	log.Println("My string is set to", myString)
+	changeUsingPointer(&myString)
+	log.Println("after func call My string is set to", myString)
 }
 
-func saySomething() string {
-	return "something"
+func changeUsingPointer(s *string) {
+	newValue := "Red"
+	*s = newValue
 }
