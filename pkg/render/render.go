@@ -1,8 +1,10 @@
 package render
 
 import (
+	"bytes"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"path/filepath"
 )
@@ -13,23 +15,33 @@ var functions = template.FuncMap {
 }
 
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-
-	_, err := RenderTemplateTest(w)
+	tc, err := CreateTemplateCache()
 	if err != nil {
-		fmt.Println("Error getting template cache:", err)
+		log.Fatal(err)
 	}
 
-	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
-	err = parsedTemplate.Execute(w, nil)
-	if err != nil {
-		fmt.Println("error parsing template", err)
-		return
+	t, ok := tc[tmpl]
+	if !ok {
+		log.Fatal(err)
 	}
+
+	// 
+	buf := new(bytes.Buffer)
+
+	_ = t.Execute(buf, nil)
+
+	_, err = buf.WriteTo(w)
+	if err != nil {
+		fmt.Println("Error writing template to browser", err)
+	}
+
 }
 
-func RenderTemplateTest(w http.ResponseWriter) (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 
-	// create a map so we can look up values quickly. The values are the templates that end in .page.tmpl
+	// create a map so we can look up values quickly. 
+	// The keys are the names of the templates
+	// The values are pointers to the templates that end in .page.tmpl
 	myCache := map[string]*template.Template{}
 
 	// Glob returns the names of all files matching pattern or nil if there is no matching file.
