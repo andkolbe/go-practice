@@ -1,26 +1,33 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/andkolbe/go-practice/pkg/config"
-	"github.com/andkolbe/go-practice/pkg/handlers"
-	"github.com/andkolbe/go-practice/pkg/render"
+	"github.com/andkolbe/go-practice/internal/models"
+	"github.com/andkolbe/go-practice/internal/config"
+	"github.com/andkolbe/go-practice/internal/handlers"
+	"github.com/andkolbe/go-practice/internal/render"
 )
 
 const portNumber = ":8080"
+
 var app config.AppConfig
 var session *scs.SessionManager
 
+// main is the main function
 func main() {
+	// what am I going to put in the session
+	gob.Register(models.Reservation{})
 
 	// change this to true when in production
 	app.InProduction = false
 
+	// set up the session
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
@@ -42,13 +49,15 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	fmt.Printf("Starting app on port %s", portNumber)
+	fmt.Println(fmt.Sprintf("Staring application on port %s", portNumber))
 
-	srv := &http.Server {
-		Addr: portNumber,
+	srv := &http.Server{
+		Addr:    portNumber,
 		Handler: routes(&app),
 	}
 
 	err = srv.ListenAndServe()
-	log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
